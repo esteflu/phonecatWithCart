@@ -13,15 +13,15 @@ phonecatDirectives.directive('dropDownMenu',
             templateUrl: "partials/dropMenu.html",
             link: function (scope, element, attrs) {
                 
-                toggleDropDown();
+                toggleDropDown(200);
 
-                function toggleDropDown() {
+                function toggleDropDown(duration) {
                     if (hasParent(element)) {
                         element.parent().bind('click', function (event) {
                             if (isCartPopulated() && !isTrashCan(event.target)) {
-                                element.toggle();
+                                element.slideToggle(duration, function() {});
                             } else if (!isTrashCan(event.target) || !isCartPopulated()) {
-                                element.hide();
+                                element.hide(duration, function(){});
                             }
                         });
                     } else {
