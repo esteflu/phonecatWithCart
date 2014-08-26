@@ -35,5 +35,9 @@ phonecatControllers.controller('PhoneCartCtrl', ['$scope','Cart',
 
 phonecatControllers.controller('PhoneCartCheckoutCtrl', ['$scope', 'CookieService',
     function($scope, CookieService) {
-       $scope.storage = CookieService.getCookie('Cart');
+       $scope.orderText = {
+           confirmation : "Order confirmation",
+           totalAmount : "Total amount"
+       }
+       $scope.order = CookieService.getCookie('Cart');
     }]);

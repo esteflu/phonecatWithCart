@@ -11,7 +11,7 @@ phonecatServices.factory('Phone', ['$resource',
         });
     }]);
 
-phonecatServices.factory('Cart', ['StorageService',
+phonecatServices.factory('Cart', ['CookieService',
     function(CookieService) {
         var cart = {};
         cart.items = [];
