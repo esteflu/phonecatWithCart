@@ -1,0 +1,16 @@
+<div class=" dropdown-menu cartItemsContainer">
+    <table>
+        <tr ng-repeat="item in cart.items track by $index">
+            <td>
+                <div class="trash glyphicon glyphicon-trash" ng-click="cart.removeItem(item)"></div>
+            </td>
+            <td>
+                <div class="cartItem">{{ item.name }}</div>
+            </td>
+        </tr>
+    </table>
+    <div class="divider"></div>
+    <div class="checkoutContainer">
+        <button>Checkout</button>
+    </div>
+</div>

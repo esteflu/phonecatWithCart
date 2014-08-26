@@ -1,0 +1,42 @@
+.cartContainer {
+    float: right;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+.cartContainer .cartIcon {
+    float: left;
+    top: 3px;
+    padding-right: 2px;
+    color: green;
+}
+
+.cartContainer .cartItemNumber {
+    float: left;
+}
+
+.cartContainer .cartTotalAmount {
+    font-weight: bold;
+
+}
+
+.cartContainer .cartItemsContainer {
+    left: auto;
+    right: 0px;
+    margin-right: 3px;
+}
+
+.cartContainer .cartItemsContainer .trash {
+    color: red;
+    padding: 2px 2px 0 2px;
+}
+
+.cartContainer .cartItemsContainer .cartItem {
+    padding: 0 4px 0 4px;
+}
+
+.cartContainer .cartItemsContainer .checkoutContainer {
+    text-align: center;
+    margin-bottom: 3px;
+}
+

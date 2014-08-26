@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-12">
+          <!-- Cart -->
+          <div class="cartContainer" ng-controller="PhoneCartCtrl">
+              <div class="cartIcon glyphicon glyphicon-shopping-cart"></div>
+              <div class="cartItemNumber">{{ cart.size }}
+                  <span>{{(cart.size > 1 || cart.size == 0) ? +'('+ cartText.itemPlural +')' : +'('+ cartText.itemSingular +')'}}</span>
+              </div>
+              <div class="cartTotalAmount">{{ cart.totalAmount | currency }}</div>
+              <drop-down-menu></drop-down-menu>
+          </div>
+          <!-- Cart -->
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="query">
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="phones">
+        <li ng-repeat="phone in phones | filter:query | orderBy:orderProp"
+            class="thumbnail phone-listing">
+          <a href="#/phones/{{phone.id}}" class="thumb"><img ng-src="{{phone.imageUrl}}"></a>
+          <a href="#/phones/{{phone.id}}">{{phone.name}}</a>
+          <p>{{phone.snippet}}</p>
+          <button ng-click="addToCart(phone)">{{ phone.price | currency }}</button>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
