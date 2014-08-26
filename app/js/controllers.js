@@ -27,7 +27,8 @@ phonecatControllers.controller('PhoneCartCtrl', ['$scope','Cart',
     function ($scope, Cart) {
         $scope.cartText = {
           itemSingular : "item",
-          itemPlural : "items"
+          itemPlural : "items",
+          checkout : "Checkout"
         };
         $scope.cart = Cart;
     }]);
