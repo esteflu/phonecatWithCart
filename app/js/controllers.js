@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('phonecatControllers', []);
+var phonecatControllers = angular.module('phonecatControllers', ['ngCookies']);
 
 phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone','Cart',
     function ($scope, Phone, Cart) {
@@ -31,4 +31,9 @@ phonecatControllers.controller('PhoneCartCtrl', ['$scope','Cart',
           checkout : "Checkout"
         };
         $scope.cart = Cart;
+    }]);
+
+phonecatControllers.controller('PhoneCartCheckoutCtrl', ['$scope', 'CookieService',
+    function($scope, CookieService) {
+       $scope.storage = CookieService.getCookie('Cart');
     }]);

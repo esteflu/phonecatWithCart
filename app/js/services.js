@@ -2,7 +2,7 @@
 
 /* Services */
 
-var phonecatServices = angular.module('phonecatServices', ['ngResource']);
+var phonecatServices = angular.module('phonecatServices', ['ngResource', 'ngCookies']);
 
 phonecatServices.factory('Phone', ['$resource',
     function ($resource) {
@@ -11,12 +11,13 @@ phonecatServices.factory('Phone', ['$resource',
         });
     }]);
 
-phonecatServices.factory('Cart', [
-    function() {
+phonecatServices.factory('Cart', ['StorageService',
+    function(CookieService) {
         var cart = {};
         cart.items = [];
         cart.totalAmount = 0;
         cart.size = 0;
+        cart.TITLE = 'Cart';
 
         cart.addItem = function(item) {
             this.items.push(item);
@@ -39,6 +40,22 @@ phonecatServices.factory('Cart', [
         cart._updateSize = function() {
             cart.size = cart.items.length;
         };
+        cart.persistCart = function(currentCart) {
+            CookieService.setCookie(cart.TITLE, currentCart);
+        };
 
         return cart;
+    }]);
+
+phonecatServices.factory('CookieService', ['$cookieStore',
+    function($cookieStore) {
+        return {
+            setCookie : function(key, value) {
+                $cookieStore.put(key, value);
+            },
+
+            getCookie : function(key) {
+                return $cookieStore.get(key);
+            }
+        };
     }]);
