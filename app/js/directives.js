@@ -22,11 +22,17 @@ phonecatDirectives.directive('dropDownMenu',
                                 element.slideToggle(duration, function() {});
                             } else if (!isTrashCan(event.target) || !isCartPopulated()) {
                                 element.hide(duration, function(){});
+                                clearCookie();
                             }
                         });
                     } else {
                         throw "dropdown menu has no trigger";
                     }
+                }
+                
+                function clearCookie() {
+                    var cart = scope.cart;
+                    cart.cookieManager.clearCookie(cart.TITLE)
                 }
 
                 function isCartPopulated() {

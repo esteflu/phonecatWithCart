@@ -18,6 +18,7 @@ phonecatServices.factory('Cart', ['CookieService',
         cart.totalAmount = 0;
         cart.size = 0;
         cart.TITLE = 'Cart';
+        cart.cookieManager = CookieService;
 
         cart.addItem = function(item) {
             this.items.push(item);
@@ -41,7 +42,7 @@ phonecatServices.factory('Cart', ['CookieService',
             cart.size = cart.items.length;
         };
         cart.persistCart = function(currentCart) {
-            CookieService.setCookie(cart.TITLE, currentCart);
+            cart.cookieManager.setCookie(cart.TITLE, currentCart);
         };
 
         return cart;
@@ -56,6 +57,10 @@ phonecatServices.factory('CookieService', ['$cookieStore',
 
             getCookie : function(key) {
                 return $cookieStore.get(key);
+            },
+
+            clearCookie : function(key) {
+              $cookieStore.remove(key);
             }
         };
     }]);
