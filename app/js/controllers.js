@@ -4,11 +4,11 @@
 
 var phonecatControllers = angular.module('phonecatControllers', ['ngCookies']);
 
-phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone','Cart',
+phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone', 'Cart',
     function ($scope, Phone, Cart) {
         $scope.phones = Phone.query();
         $scope.orderProp = 'age';
-        $scope.addToCart = function(phone) {
+        $scope.addToCart = function (phone) {
             Cart.addItem(phone);
         };
     }]);
@@ -23,21 +23,22 @@ phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Ph
         };
     }]);
 
-phonecatControllers.controller('PhoneCartCtrl', ['$scope','Cart',
+phonecatControllers.controller('PhoneCartCtrl', ['$scope', 'Cart',
     function ($scope, Cart) {
         $scope.cartText = {
-          itemSingular : "item",
-          itemPlural : "items",
-          checkout : "Checkout"
+            itemSingular: "item",
+            itemPlural: "items",
+            checkout: "Checkout"
         };
+        Cart.mergeWithCookie();
         $scope.cart = Cart;
     }]);
 
 phonecatControllers.controller('PhoneCartCheckoutCtrl', ['$scope', 'CookieService',
-    function($scope, CookieService) {
-       $scope.orderText = {
-           confirmation : "Order confirmation",
-           totalAmount : "Total amount"
-       }
-       $scope.order = CookieService.getCookie('Cart');
+    function ($scope, CookieService) {
+        $scope.orderText = {
+            confirmation: "Order confirmation",
+            totalAmount: "Total amount"
+        }
+        $scope.order = CookieService.getCookie('Cart');
     }]);
