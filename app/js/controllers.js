@@ -30,7 +30,6 @@ phonecatControllers.controller('PhoneCartCtrl', ['$scope', 'Cart',
             itemPlural: "items",
             checkout: "Checkout"
         };
-        Cart.mergeWithCookie();
         $scope.cart = Cart;
     }]);
 

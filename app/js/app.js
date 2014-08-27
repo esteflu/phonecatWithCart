@@ -30,3 +30,8 @@ phonecatApp.config(['$routeProvider',
                 redirectTo: '/phones'
             });
     }]);
+
+phonecatApp.run(['Cart',
+    function(Cart) {
+      Cart.mergeWithCookie();
+    }]);
