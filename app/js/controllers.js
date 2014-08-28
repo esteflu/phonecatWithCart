@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('phonecatControllers', ['ngCookies']);
+var phonecatControllers = angular.module('phonecatControllers', []);
 
 phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone', 'Cart',
     function ($scope, Phone, Cart) {

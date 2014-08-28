@@ -13,7 +13,8 @@ describe('PhoneCat controllers', function() {
 
   beforeEach(module('phonecatApp'));
   beforeEach(module('phonecatServices'));
-
+    
+  /* each controller test  */
   describe('PhoneListCtrl', function(){
     var scope, ctrl, $httpBackend;
 
@@ -68,5 +69,44 @@ describe('PhoneCat controllers', function() {
 
       expect(scope.phone).toEqualData(xyzPhoneData());
     });
+  });
+
+  describe('PhoneCartCtrl', function() {
+     var scope, ctrl, cart;
+
+      beforeEach(inject(function($rootScope, $controller, Cart) {
+          scope = $rootScope.$new();
+          ctrl = $controller('PhoneCartCtrl', { $scope : scope });
+          cart = Cart;
+      }));
+
+      it('should contain gui text object with key-value pairs', function() {
+          expect(scope.cartText).toEqualData({itemSingular: "item", itemPlural: "items", checkout: "Checkout"})
+      });
+
+      it('should have a defined cart', function() {
+         expect(scope.cart).toEqualData(cart);
+      });
+
+  });
+
+  describe('PhoneCartCheckoutCtrl', function() {
+      var scope, ctrl, cookieService, cookie,
+          cart = {items : [], totalAmount : 0, size : 0, TITLE : 'Cart', cookieManager : cookieService};
+
+      beforeEach(inject(function($rootScope, $controller, CookieService) {
+          scope = $rootScope.$new();
+          cookieService = CookieService;
+          cookieService.setCookie(cart.TITLE, cart);
+          ctrl = $controller('PhoneCartCheckoutCtrl', { $scope : scope });
+      }));
+
+      it('should contain gui text object with key-value pairs', function() {
+         expect(scope.orderText).toEqualData({confirmation: "Order confirmation", totalAmount: "Total amount"});
+      });
+
+      it('should get cookie', function() {
+          expect(scope.order).toEqualData(cookieService.getCookie(cart.TITLE));
+      });
   });
 });
