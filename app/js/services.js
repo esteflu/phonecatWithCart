@@ -35,8 +35,10 @@ phonecatServices.factory('Cart', ['CookieService',
         };
 
         cart.removeItem = function (item) {
-            this.items.splice(cart.items.indexOf(item), 1);
-            this.updateCart(null, item.price);
+            if (cart.size > 0) {
+                this.items.splice(cart.items.indexOf(item), 1);
+                this.updateCart(null, item.price);
+            }
         };
 
         cart.updateCart = function (amountToIncrease, amountToDecrease) {

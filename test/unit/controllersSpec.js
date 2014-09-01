@@ -12,7 +12,6 @@ describe('PhoneCat controllers', function () {
     });
 
     beforeEach(module('phonecatApp'));
-    beforeEach(module('phonecatServices'));
 
     /* each controller test  */
     describe('PhoneListCtrl', function () {
@@ -97,13 +96,27 @@ describe('PhoneCat controllers', function () {
     });
 
     describe('PhoneCartCheckoutCtrl', function () {
-        var scope, ctrl, cookieService, cookie,
-            cart = {items: [], totalAmount: 0, size: 0, TITLE: 'Cart', cookieManager: cookieService};
+        var scope, ctrl,
+            cookieService,
+            cookie,
+            cart,
+            mockItems = [
+                {
+                    "age": 7,
+                    "price": 234,
+                    "carrier": "Cellular South",
+                    "id": "lg-axis",
+                    "imageUrl": "img/phones/lg-axis.0.jpg",
+                    "name": "LG Axis",
+                    "snippet": "Android Powered, Google Maps Navigation, 5 Customizable Home Screens"
+                }
+            ];
 
-        beforeEach(inject(function ($rootScope, $controller, CookieService) {
+        beforeEach(inject(function ($rootScope, $controller, CookieService, Cart) {
             scope = $rootScope.$new();
+            cart = Cart;
             cookieService = CookieService;
-            cookieService.setCookie(cart.TITLE, cart);
+
             ctrl = $controller('PhoneCartCheckoutCtrl', { $scope: scope });
         }));
 
@@ -111,8 +124,10 @@ describe('PhoneCat controllers', function () {
             expect(scope.orderText).toEqualData({confirmation: "Order confirmation", totalAmount: "Total amount"});
         });
 
-        it('should get cookie', function () {
-            expect(scope.order).toEqualData(cookieService.getCookie(cart.TITLE));
+        it('should set define and get cookie', function () {
+            cart.persistCart(mockItems);
+            expect(cookieService.getCookie(cart.TITLE)).toBeDefined();
+            expect(cookieService.getCookie(cart.TITLE)).toEqualData(cart.loadCartFromCookie());
         });
     });
 });

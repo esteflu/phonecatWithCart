@@ -1,12 +1,23 @@
 'use strict';
 
-describe('service', function() {
+describe('service', function () {
 
-  // load modules
-  beforeEach(module('phonecatApp'));
+
+    // load modules
+    beforeEach(module('phonecatApp'));
+    beforeEach(inject(function (Phone, Cart) {
+        phone = Phone;
+        cart = Cart;
+    }));
+
+    function addNrOfItemsToCart(nr) {
+        for (var i = 0; i < nr; i++) {
+            cart.addItem(mockItems[i]);
+        }
+    }
 
     var phone, cart;
-    var mockItems =  [
+    var mockItems = [
         {
             "age": 7,
             "price": 234,
@@ -25,25 +36,27 @@ describe('service', function() {
             "snippet": "Introducing Dell\u2122 Streak 7. Share photos, videos and movies together. It\u2019s small enough to carry around, big enough to gather around."
         }
     ];
-    beforeEach(inject(function (Phone, Cart) {
-      phone = Phone;
-      cart = Cart;
-    }));
 
-    it('check the existence of Phone factory', function() {
+
+    it('check the existence of Phone factory', function () {
         expect(phone).toBeDefined();
     });
 
-    it('check the existence of Cart factory', function() {
+    it('check the existence of Cart factory', function () {
         expect(cart).toBeDefined();
     });
-    
-    it('When adding to phones to Cart price should be updated', function() {
-       //TODO check price update
-       cart.addItem(mockItems[0]);
-        console.log("", cart.totalAmount);
-        
-       
+
+    it('When adding phones to cart, total amount should be updated', function () {
+        cart.addItem(mockItems[0]);
+        var totalAmountForOneItem = cart.totalAmount;
+        cart.addItem(mockItems[1]);
+        expect(cart.totalAmount).toBeGreaterThan(totalAmountForOneItem);
     });
 
+    it("When removing phones to cart, total amount should be updated", function () {
+        addNrOfItemsToCart(1);
+        var totalAmountForTwoItems = cart.totalAmount;
+        cart.removeItem(mockItems[0]);
+        expect(cart.totalAmount).toBeLessThan(totalAmountForTwoItems);
+    });
 });
