@@ -38,7 +38,13 @@ describe('directives', function () {
 
     }));
 
-    it('', function () {
-        //TODO expect'a modellen/attributen i directivet
+    it('should contain the names of the items in the cart', function () {
+        for (var i = 0; i < scope.cart.items.length; i++) {
+            expect(element.html()).toContain(scope.cart.items[i].name);
+        }
+    });
+
+    it('the table rows should equal the nr of items in the cart', function() {
+       expect(element.find('tr').length).toEqual(scope.cart.items.length);
     });
 });
