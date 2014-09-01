@@ -39,7 +39,7 @@ describe('service', function() {
     });
     
     it('When adding to phones to Cart price should be updated', function() {
-       //TODO
+       //TODO check price update
        cart.addItem(mockItems[0]);
         console.log("", cart.totalAmount);
         
