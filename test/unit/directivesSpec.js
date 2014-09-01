@@ -27,6 +27,7 @@ describe('directives', function () {
                 "snippet": "Introducing Dell\u2122 Streak 7. Share photos, videos and movies together. It\u2019s small enough to carry around, big enough to gather around."
             }
         ];
+
     function addItemsToCart() {
         for (var i = 0; i < items.length; i++) {
             scope.cart.addItem(items[i]);
@@ -54,5 +55,10 @@ describe('directives', function () {
         scope.cart.removeItem(items[0]);
         scope.$digest();
         expect(element.find('tr').length).toEqual(scope.cart.items.length);
+    });
+
+    it('the checkout button should have a string label', function () {
+        var checkoutButton = element.find('button').contents()[0];
+        expect(checkoutButton.text).toEqual(scope.cartText.checkout);
     });
 });
