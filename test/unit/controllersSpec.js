@@ -3,6 +3,9 @@
 /* jasmine specs for controllers go here */
 describe('PhoneCat controllers', function () {
 
+    beforeEach(module('phonecatApp'));
+    beforeEach(module('mockedDataModule'));
+
     beforeEach(function () {
         this.addMatchers({
             toEqualData: function (expected) {
@@ -11,9 +14,6 @@ describe('PhoneCat controllers', function () {
         });
     });
 
-    beforeEach(module('phonecatApp'));
-
-    /* each controller test  */
     describe('PhoneListCtrl', function () {
         var scope, ctrl, $httpBackend;
 
@@ -46,7 +46,6 @@ describe('PhoneCat controllers', function () {
             expect(scope.orderProp).toBe('age');
         });
     });
-
 
     describe('PhoneDetailCtrl', function () {
         var scope, $httpBackend, ctrl,
@@ -100,23 +99,14 @@ describe('PhoneCat controllers', function () {
             cookieService,
             cookie,
             cart,
-            mockItems = [
-                {
-                    "age": 7,
-                    "price": 234,
-                    "carrier": "Cellular South",
-                    "id": "lg-axis",
-                    "imageUrl": "img/phones/lg-axis.0.jpg",
-                    "name": "LG Axis",
-                    "snippet": "Android Powered, Google Maps Navigation, 5 Customizable Home Screens"
-                }
-            ];
+            mock;
 
-        beforeEach(inject(function ($rootScope, $controller, CookieService, Cart) {
+        beforeEach(inject(function ($rootScope, $controller, CookieService, Cart, mockData) {
             scope = $rootScope.$new();
             cart = Cart;
             cookieService = CookieService;
-
+            mock = mockData;
+            cart.addItem(mock[0]);
             ctrl = $controller('PhoneCartCheckoutCtrl', { $scope: scope });
         }));
 
@@ -124,10 +114,22 @@ describe('PhoneCat controllers', function () {
             expect(scope.orderText).toEqualData({confirmation: "Order confirmation", totalAmount: "Total amount"});
         });
 
+        it('should populate scope.order from cookie', function () {
+            var order = cookieService.getCookie(cart.TITLE);
+            expect(order).toBeDefined();
+            expect(scope.order).toEqualData(order);
+        });
+
         it('should set define and get cookie', function () {
-            cart.persistCart(mockItems);
             expect(cookieService.getCookie(cart.TITLE)).toBeDefined();
+            expect(cart.loadCartFromCookie()).toBeDefined();
             expect(cookieService.getCookie(cart.TITLE)).toEqualData(cart.loadCartFromCookie());
+        });
+
+        it('should clear cookie and leave it undefined', function () {
+            expect(cookieService.getCookie(cart.TITLE)).toBeDefined();
+            cookieService.clearCookie(cart.TITLE);
+            expect(cookieService.getCookie(cart.TITLE)).toBeUndefined();
         });
     });
 });

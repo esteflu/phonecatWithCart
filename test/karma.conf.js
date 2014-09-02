@@ -12,7 +12,8 @@ module.exports = function (config) {
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/js/**/*.js',
             'app/partials/*.html',
-            'test/unit/**/*.js'
+            'test/unit/**/*.js',
+            'test/mock/**/*.js'
         ],
 
         preprocessors: {
