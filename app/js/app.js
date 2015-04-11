@@ -26,6 +26,10 @@ phonecatApp.config(['$routeProvider',
                 templateUrl : 'partials/checkout.html',
                 controller : 'PhoneCartCheckoutCtrl'
             }).
+            when('/test', {
+                templateUrl : 'partials/sandbox.html',
+                controller : 'sandboxCtrl'
+            }).
             otherwise({
                 redirectTo: '/phones'
             });
