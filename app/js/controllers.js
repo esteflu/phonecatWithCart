@@ -41,8 +41,11 @@ phonecatControllers.controller('PhoneCartCheckoutCtrl', ['$scope', 'CookieServic
         }
         $scope.order = CookieService.getCookie('Cart');
     }]);
-phonecatControllers.controller('sandboxCtrl', ['$scope',
-    function ($scope) {
+phonecatControllers.controller('sandboxCtrl', ['$scope', '$log',
+    function ($scope, $log) {
+        $scope.isSelected = function() {
+            $log.info($scope.checkboxModel);
+        }
         $scope.checkboxModel = {
             value : 'unchecked'
         };

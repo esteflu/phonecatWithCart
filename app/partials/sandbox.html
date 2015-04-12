@@ -1,9 +1,32 @@
 <div class="checkBoxContainer">
     <form name="" ng-controller="sandboxCtrl">
-        Value: <input type="checkbox"
-                      ng-model="checkboxModel.value"
-                      ng-true-value="checked"
-                      ng-false-value="unchecked"> <br/>
-        <tt>value = {{checkboxModel.value}}</tt><br/>
+        SMS notification: <input type="checkbox"
+                            ng-change="isSelected()"
+                            ng-model="checkboxModel.value"
+                            ng-true-value="checked"
+                            ng-false-value="unchecked"
+                            data-toggle="modal"
+                            data-target=""> <br/>
     </form>
 </div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Please confirm that '+4540123456' is valid for SMS&hellip;</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

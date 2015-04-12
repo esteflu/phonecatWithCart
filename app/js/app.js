@@ -26,7 +26,7 @@ phonecatApp.config(['$routeProvider',
                 templateUrl : 'partials/checkout.html',
                 controller : 'PhoneCartCheckoutCtrl'
             }).
-            when('/test', {
+            when('/sandbox', {
                 templateUrl : 'partials/sandbox.html',
                 controller : 'sandboxCtrl'
             }).
