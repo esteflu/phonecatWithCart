@@ -38,16 +38,22 @@ phonecatControllers.controller('PhoneCartCheckoutCtrl', ['$scope', 'CookieServic
         $scope.orderText = {
             confirmation: "Order confirmation",
             totalAmount: "Total amount"
-        }
+        };
         $scope.order = CookieService.getCookie('Cart');
     }]);
 phonecatControllers.controller('sandboxCtrl', ['$scope', '$log',
     function ($scope, $log) {
-        $scope.isSelected = function() {
-            $log.info($scope.checkboxModel);
-        }
         $scope.checkboxModel = {
-            value : 'unchecked'
+            value: 'unchecked'
         };
-
+        $scope.isSelected = function (event) {
+            var value = $scope.checkboxModel.value;
+            if (value === 'checked') {
+                $('#myModal').modal('show');
+            }
+        };
+        $scope.editInput = function () {
+            angular.element('#numberInput').focus();
+            //TODO uncheck checkbox
+        };
     }]);
